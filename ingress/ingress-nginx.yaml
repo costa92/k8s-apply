@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dtm-ing
+spec:
+  rules:
+    - host: "hello-jane.test"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: dtm-svc
+                port:
+                  number: 36789 # 此处为 http server，grpc server 的设置，请访问 https://kubernetes.github.io/ingress-nginx/examples/grpc/
+  ingressClassName: nginx # 使用了其他的 ingressClassName， 请自行查询
