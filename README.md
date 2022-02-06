@@ -57,4 +57,5 @@ kubectl apply -f nginx-deployment.yaml
 kubectl apply -f service.yml
 ```
 
-
+### 测试
+参考 sample文件中的 apple.yaml、banana.yaml、ingress.yaml
