@@ -16,7 +16,8 @@ kubectl apply -f ingress-nginx.yaml
 ```sh
 kubectl apply -f dtm/deployment.yml -f dtm/configMap.yml -f dtm/service.yml
 ```
-参考项目地址：[GitHub](https://github.com/dtm-labs/dtm%20)
+参考项目地址：[GitHub](https://github.com/dtm-labs/dtm)
+
 参考文档： [Docs](https://dtm.pub/)
 
 ###  
