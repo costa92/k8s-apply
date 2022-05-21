@@ -1,0 +1,10 @@
+- serverName: 'minikube'
+  serverAddress: 'https://192.168.64.3:8443'
+  #serverAdminUser: 'xxx'
+  #serverAdminPassword: 'xxx#'
+  serverAdminToken: 'null'
+  serverDashboardUrl: "http://192.168.64.3:31207/#"
+  production: 'false'
+  kubeConfigPath: "/mnt/minikube.config"
+  harborConfig: "HarborUrl, HarborUsername, HarborPassword, HarborEmail"
+
