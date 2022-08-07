@@ -16,4 +16,14 @@ spec:
       - name: nginx
         image: nginx:1.7.9
         ports:
-        - containerPort: 80
+        - name: http
+          containerPort: 80
+          protocol: TCP
+        volumeMounts: 
+          - name: config-volume
+            mountPath: /usr/share/nginx/html/index.html
+            subPath: index.html
+      volumes:  
+      - name: config-volume
+        configMap:
+          name: nginx-config  
