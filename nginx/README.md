@@ -29,5 +29,5 @@ $ kustomize build base | kubectl apply -f -  # 这种方式直接部署在集群
 $ kubectl apply -k # 1.14 版本可以直接使用该命令部署应用于集群中
 ```
 参考: https://github.com/kubernetes-sigs/kustomize
-
+介绍文档: https://www.jianshu.com/p/837d7ae77818
 
