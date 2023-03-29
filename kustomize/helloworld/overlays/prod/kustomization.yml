@@ -13,4 +13,4 @@ patchesStrategicMerge:
 images:
 - name: demo-web
   newName: demo-web
-  newTag: "v1"
+  newTag: v2

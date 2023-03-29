@@ -64,5 +64,46 @@ $ kubectl apply -k helloworld/overlays/prod
 $ kubectl delete -k helloworld/overlays/dev
 ```
 
+
+## 修改镜像信息
+### 修改镜像的命令
+```shell
+$ cd helloworld/overlays/prod && kustomize edit set image demo-web=demo-web:v2
+```
+### 查看镜像的命令之后区别
+```shell
+kubectl diff -k ./
+```
+结果:
+```shell
+➜  prod git:(main) ✗ kubectl diff -k ./
+diff -u -N /tmp/LIVE-3767992257/apps.v1.Deployment.prod.the-deployment-prod /tmp/MERGED-2896871326/apps.v1.Deployment.prod.the-deployment-prod
+--- /tmp/LIVE-3767992257/apps.v1.Deployment.prod.the-deployment-prod    2023-03-29 19:24:33.919332931 +0800
++++ /tmp/MERGED-2896871326/apps.v1.Deployment.prod.the-deployment-prod  2023-03-29 19:24:33.919332931 +0800
+@@ -6,7 +6,7 @@
+     kubectl.kubernetes.io/last-applied-configuration: |
+       {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"hello"},"name":"the-deployment-prod","namespace":"prod"},"spec":{"replicas":3,"selector":{"matchLabels":{"app":"hello"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"labels":{"app":"hello"}},"spec":{"containers":[{"command":["/app/server"],"env":[{"name":"ALT_GREEITMG","valueFrom":{"configMapKeyRef":{"key":"altGreeting","name":"the-map-prod"}}},{"name":"ENABLE_RISKY","valueFrom":{"configMapKeyRef":{"key":"enableRisky","name":"the-map-prod"}}}],"image":"demo-web:v1","name":"the-containers","ports":[{"containerPort":8080}]}]}}}}
+   creationTimestamp: "2023-03-29T11:18:27Z"
+-  generation: 1
++  generation: 2
+   labels:
+     app: hello
+   managedFields:
+@@ -145,7 +145,7 @@
+             configMapKeyRef:
+               key: enableRisky
+               name: the-map-prod
+-        image: demo-web:v1
++        image: demo-web:v2
+         imagePullPolicy: IfNotPresent
+         name: the-containers
+         ports:
+```
+
+### 修改空间
+```shell
+kustomize edit set namespace prod
+```
+
 ## 参考文档
 [kustomize 官网](https://kubernetes.io/zh-cn/docs/tasks/manage-kubernetes-objects/)  
