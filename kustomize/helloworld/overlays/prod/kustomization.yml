@@ -2,14 +2,15 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- ../../base 
+- ../../base
 
-commonLabels: 
+commonLabels:
   app: hello
-
 namespace: prod
 nameSuffix: -prod
-
 patchesStrategicMerge:
 - map.yaml
-
+images:
+- name: demo-web
+  newName: demo-web
+  newTag: "v1"
