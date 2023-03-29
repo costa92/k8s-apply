@@ -106,4 +106,5 @@ kustomize edit set namespace prod
 ```
 
 ## 参考文档
-[kustomize 官网](https://kubernetes.io/zh-cn/docs/tasks/manage-kubernetes-objects/)  
+1. [kustomize 官网文档](https://kubernetes.io/zh-cn/docs/tasks/manage-kubernetes-objects)  
+2. [kustomize examples](https://github.com/kubernetes-sigs/kustomize/tree/master/examples)
