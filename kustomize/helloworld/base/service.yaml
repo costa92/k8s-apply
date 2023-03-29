@@ -1,0 +1,14 @@
+# https://kubernetes.io/docs/concepts/services-networking/service/
+apiVersion: v1
+kind: Service
+metadata:
+  name: the-service
+spec:
+  selector:
+    app: hello
+  type: NodePort
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+

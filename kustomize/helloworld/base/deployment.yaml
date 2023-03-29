@@ -1,0 +1,40 @@
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: the-deployment
+  labels:
+    app: the-deployment
+spec:
+  selector:
+    matchLabels:
+      app: hello
+  replicas: 3
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: hello
+    spec:
+      containers:
+      - name:  the-containers
+        image:  demo-web:v2
+        command: ["/app/server"]  
+        ports:
+        - containerPort:  8080
+        env:
+        - name: ALT_GREEITMG
+          valueFrom:
+            configMapKeyRef:
+              name: the-map
+              key: altGreeting
+        - name: ENABLE_RISKY
+          valueFrom:
+            configMapKeyRef:
+              name: the-map
+              key: enableRisky     
+

@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: the-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: test.dev.coolops.cn
+      http:
+        paths:
+        - path: /
+          pathType: Prefix  
+          backend:
+            service:
+              name: the-service
+              port: 
+                name: http
+
+
+
