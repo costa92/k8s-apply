@@ -19,7 +19,7 @@ helloworld
         ├── kustomization.yaml
         └── map.yaml
 ```
-****base*
+*base*
 base 指的是一个 kustomization , 任何的 kustomization 包括 overlay (后面提到)，都可以作为另一个 kustomization 的 base (简单理解为基础目录)。base 中描述了共享的内容，如资源和常见的资源配置
 
 *overlay*
@@ -48,9 +48,9 @@ $ kubectl apply -k # 1.14 版本可以直接使用该命令部署应用于集群
 
 运行开发环境
 ```sh 
-kustomize build helloworld/overlays/dev | kubectl apply -f -   # 或者 kubectl apply -k
+$ kustomize build helloworld/overlays/dev | kubectl apply -f -   # 或者 kubectl apply -k
 or
-kubectl apply -k helloworld/overlays/dev 
+$ kubectl apply -k helloworld/overlays/dev 
 ```
 运行生产环境
 ```sh 
@@ -64,3 +64,5 @@ $ kubectl apply -k helloworld/overlays/prod
 $ kubectl delete -k helloworld/overlays/dev
 ```
 
+## 参考文档
+[kustomize 官网](https://kubernetes.io/zh-cn/docs/tasks/manage-kubernetes-objects/)  
