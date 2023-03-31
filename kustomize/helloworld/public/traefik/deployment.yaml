@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traefik-controller
+  labels:
+    app: traefik
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traefik
+  template:
+    metadata:
+      labels:
+        app: traefik
+    spec:
+      serviceAccountName: traefik-account
+      terminationGracePeriodSeconds: 60
+      containers:
+        - name: traefik
+          image: traefik:v2.9
+          ports:
+            - name: http
+              containerPort: 80
+            - name: https
+              containerPort: 443
+            - name: dashboard
+              containerPort: 8080
+          args:
+            - --api.dashboard=true
+            - --api.debug=true
+            - --api.insecure=true
+            - --providers.kubernetescrd=true
+            - --providers.kubernetesingress=true
+            - --providers.kubernetesingress.ingressendpoint.publishedservice=default/traefik-ingress-service
+            - --providers.kubernetesingress.ingressclass=traefik
+            - --entrypoints.web.address=:80
+            - --entrypoints.websecure.address=:443
+#            - --entrypoints.dashboard.address=:81
+            - --log.level=DEBUG
+          resources:
+            limits:
+              cpu: 200m
+              memory: 30Mi
+            requests:
+              cpu: 100m
+              memory: 20Mi

@@ -1,12 +1,13 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+namespace: traefik
+
 resources:
-- configMap.yaml
+- traefik-config.yaml
+- definition.yaml
+- rbac.yaml
 - deployment.yaml
 - service.yaml
-#- ingress.yaml
-
-commonLabels:
-  app: hello
-
+- ingress.yaml
+- ingressroute.yaml

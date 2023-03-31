@@ -7,4 +7,4 @@ nameSuffix: -dev
 
 patchesStrategicMerge:
 - map.yaml  
-- ingress.yaml
+#- ingress.yaml
