@@ -3,7 +3,8 @@ kind: Ingress
 metadata:
   name: traefik
   annotations:
-    kubernetes.io/ingress.class: traefik
+    kubernetes.io/ingress.class: traefik-v2.8
+#    traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
   rules:
     - host: traefik.dev.com
@@ -13,7 +14,7 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: traefik-ingress-service
+              name: traefik
               port:
-                name: admin
+                number: 8080
 

@@ -1,0 +1,41 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: traefik-map
+data:
+  traefik.yaml: |-
+    global:
+      checkNewVersion: false    # 周期性的检查是否有新版本发布
+      sendAnonymousUsage: false # 周期性的匿名发送使用统计信息
+    serversTransport:
+      insecureSkipVerify: true  # Traefik忽略验证代理服务的TLS证书
+    api:
+      insecure: true            # 允许HTTP 方式访问API
+      dashboard: true           # 启用Dashboard
+      debug: false              # 启用Debug调试模式
+    entryPoints:
+      web:
+        address: ":80"          # 配置80端口，并设置入口名称为web
+        transport:
+          respondingTimeouts:
+            idleTimeout: 180
+        forwardedHeaders:
+          insecure: true        # 信任所有的forward headers
+      websecure:
+        address: ":443"         # 配置443端口，并设置入口名称为 websecure
+        transport:
+          respondingTimeouts:
+            idleTimeout: 180
+        forwardedHeaders:
+          insecure: true
+      traefik:
+        address: ":8080"        # 配置8080端口，并设置入口名称为 dashboard
+    providers:
+      kubernetesCRD:            # 启用Kubernetes CRD方式来配置路由规则
+    #    ingressClass: "traefik-v2.8" # 指定traefik的ingressClass实例名称
+        labelSelector: "app=traefik-v2.8" # 通过标签选择器指定traefik标签 
+        allowCrossNamespace: true   #允许跨namespace
+        allowEmptyServices: true    #允许空endpoints的service
+    log:
+      level: "DEBUG"            # 设置调试日志级别
+      format: "common"          # 设置调试日志格式

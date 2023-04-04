@@ -1,13 +1,17 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: ingressroutefoo
+  name: dashboard
+  labels: # 通过标签选择器，该IngressRoute资源由配置了app=traefik-v2.8的traefik处理
+    app: traefik-v2.8
+#  annotations:
+#    kubernetes.io/ingress.class: traefik-v2.8 #  因为静态配置文件指定了ingressclass，所以这里的annotations 要指定，否则访问会404
 spec:
   entryPoints:
-  - web
+    - web
   routes:
-    - match: Host(`traefik.dev.com`) && PathPrefix(`/dashboard`)
+    - match: Host(`traefik.test.com`)
       kind: Rule
       services:
-        - name: traefik
-          port: 8080
+        - name: api@internal
+          kind: TraefikService
