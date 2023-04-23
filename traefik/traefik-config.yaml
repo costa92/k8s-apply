@@ -30,7 +30,8 @@ data:
         address: ":9100"        # 配置9100端口，作为metrics收集入口
     providers:
       kubernetesCRD:            # 启用Kubernetes CRD方式来配置路由规则
-        ingressClass: ""        # 指定traefik的ingressClass名称
+    #    ingressClass: ""        # 指定traefik的ingressClass名称
+        ingressClass: "traefik-v2.9" # 指定traefik的ingressClass实例名称
         allowCrossNamespace: true   #允许跨namespace
         allowEmptyServices: true    #允许空endpoints的service        
     log:

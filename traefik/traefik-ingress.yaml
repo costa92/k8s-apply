@@ -11,8 +11,8 @@ spec:
     - host: traefik.test.com
       http:
         paths:
-          - path: /
-            pathType: Prefix
+          - path: /dashboard
+            pathType: Exact
             backend:
               service:
                 name: traefik

@@ -3,6 +3,8 @@ kind: IngressRoute
 metadata:
   name: dashboard
   namespace: traefik
+  annotations:
+    kubernetes.io/ingress.class: traefik-v2.9 #  因为静态配置文件指定了ingressclass，所以这里的annotations 要指定，否则访问会404
 spec:
   entryPoints:
     - web
@@ -10,5 +12,6 @@ spec:
     - match: Host(`traefik.test.com`)
       kind: Rule
       services:
-        - name: traefik
-          port: 9000
+        - name: api@internal
+          kind: TraefikService
+          namespace: traefik
