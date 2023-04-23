@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: traefik
+  namespace: traefik
   labels:
     app: traefik
 spec:
@@ -14,23 +15,23 @@ spec:
       labels:
         app: traefik
     spec:
-      serviceAccountName: traefik-account
+      serviceAccountName: traefik-ingress-controller
       terminationGracePeriodSeconds: 60
       containers:
         - name: traefik
           image: traefik:v2.9
           env:
-           - name: TZ                            # 指定时区
-             value: "Asia/Shanghai"
+            - name: TZ                            # 指定时区
+              value: "Asia/Shanghai"
           ports:
             - name: web
               containerPort: 80
+            - name: websecure
+              containerPort: 443
             - name: admin
-              containerPort: 8090
-            - name: tcpep
-              containerPort: 8000
-            - name: udpep
               containerPort: 9000
+            - name: metrics
+              containerPort: 9100
           securityContext:
             capabilities:
               drop:

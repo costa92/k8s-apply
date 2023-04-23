@@ -32,10 +32,70 @@ data:
         address: ":8080"        # 配置8080端口，并设置入口名称为 dashboard
     providers:
       kubernetesCRD:            # 启用Kubernetes CRD方式来配置路由规则
-    #    ingressClass: "traefik-v2.8" # 指定traefik的ingressClass实例名称
-        labelSelector: "app=traefik-v2.8" # 通过标签选择器指定traefik标签 
-        allowCrossNamespace: true   #允许跨namespace
-        allowEmptyServices: true    #允许空endpoints的service
+        ingressClass: "traefik"     # 指定traefik的ingressClass实例名称
+    #    labelSelector: "app=traefik" # 通过标签选择器指定traefik标签
+    #    allowCrossNamespace: true   #允许跨namespace
+    #    allowEmptyServices: true    #允许空endpoints的service
+      kubernetesingress:   ## 启动 Kubernetes Ingress 方式来配置路由规则
+        ingressclass: traefik
     log:
       level: "DEBUG"            # 设置调试日志级别
       format: "common"          # 设置调试日志格式
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: traefik-config
+data:
+  traefik.yaml: |-
+    serversTransport:
+      insecureSkipVerify: true  ## Traefik 忽略验证代理服务的 TLS 证书
+    api:
+      insecure: true            ## 允许 HTTP 方式访问 API
+      dashboard: true           ## 启用 Dashboard
+      debug: false              ## 启用 Debug 调试模式
+    metrics:
+      prometheus: metrics       ## 配置 Prometheus 监控指标数据，并使用默认配置
+    entryPoints:
+      web:
+        address: ":80"          ## 配置 80 端口，并设置入口名称为 web
+      websecure:
+        address: ":443"         ## 配置 443 端口，并设置入口名称为 websecure
+      traefik:
+        address: ":8090"        ## 配置 8090 端口，并设置入口名称为 dashboard
+      metrics:
+        address: ":8082"        ## 配置 8082 端口，作为metrics收集入口
+      tcpep:
+        address: ":8000"        ## 配置 8000 端口，作为tcp入口
+      udpep:
+        address: ":9000/udp"    ## 配置 9000 端口，作为udp入口
+    providers:
+      kubernetescrd:            ## 启用 Kubernetes CRD 方式来配置路由规则
+        ingressclass: traefik
+      kubernetesingress:        ## 启动 Kubernetes Ingress 方式来配置路由规则
+        ingressclass: traefik
+    log:
+      level: "DEBUG"            # 设置调试日志级别
+      format: "common"          # 设置调试日志格式    
+#    log:
+#      filePath: "/etc/traefik/logs/traefik.log"              ## 设置调试日志文件存储路径，如果为空则输出到控制台
+#      level: error              ## 设置调试日志级别
+#      format: ""                ## 设置调试日志格式
+#    accessLog:
+#      filePath: "/etc/traefik/logs/access.log"              ## 设置访问日志文件存储路径，如果为空则输出到控制台
+#      format: ""                ## 设置访问调试日志格式
+#      bufferingSize: 0          ## 设置访问日志缓存行数
+#      filters:
+#        #statusCodes: ["200"]   ## 设置只保留指定状态码范围内的访问日志
+#        retryAttempts: true     ## 设置代理访问重试失败时，保留访问日志
+#        minDuration: 20         ## 设置保留请求时间超过指定持续时间的访问日志
+#      fields:                   ## 设置访问日志中的字段是否保留（keep 保留、drop 不保留）
+#        defaultMode: keep       ## 设置默认保留访问日志字段
+#        names:                  ## 针对访问日志特别字段特别配置保留模式
+#          ClientUsername: drop
+#        headers:                ## 设置 Header 中字段是否保留
+#          defaultMode: keep     ## 设置默认保留 Header 中字段
+#          names:                ## 针对 Header 中特别字段特别配置保留模式
+#            User-Agent: redact
+#            Authorization: drop
+#            Content-Type: keep
