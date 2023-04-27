@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: longhorn-ing-traefik
+  namespace: traefik
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+#    kubernetes.io/ingress.class: traefik
+spec:
+#  ingressClassName: traefik
+  rules:
+    - host: "hello-world.local"  #<-- See here
+      http:
+        paths:
+          - path: /longhorn #<-- See here
+            pathType: Prefix
+            backend:
+              service:
+                name: whoami
+                port:
+                  number: 80

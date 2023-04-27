@@ -82,7 +82,13 @@ deployment:
   shareProcessNamespace: false
   # Custom pod DNS policy. Apply if `hostNetwork: true`
   # dnsPolicy: ClusterFirstWithHostNet
-  dnsConfig: {}
+  dnsConfig:
+    nameservers:
+      - 10.96.0.10
+      - 192.168.49.1
+    options:
+      - name: ndots
+        value: "0"
     # nameservers:
     #   - 192.0.2.1 # this is an example
     # searches:
@@ -506,9 +512,12 @@ globalArguments:
 # Additional arguments to be passed at Traefik's binary
 # All available options available on https://docs.traefik.io/reference/static-configuration/cli/
 ## Use curly braces to pass values: `helm install --set="additionalArguments={--providers.kubernetesingress.ingressclass=traefik-internal,--log.level=DEBUG}"`
-additionalArguments: []
-#  - "--providers.kubernetesingress.ingressclass=traefik-internal"
-#  - "--log.level=DEBUG"
+additionalArguments:
+  - "--providers.kubernetesingress.ingressclass=traefik-internal"
+  - "--log.level=DEBUG"
+  - "--serversTransport.insecureSkipVerify=true"
+  - "--api.insecure=true"
+  - "--api.dashboard=true"
 
 # Environment variables to be passed to Traefik's binary
 env: []

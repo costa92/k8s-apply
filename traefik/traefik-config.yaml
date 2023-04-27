@@ -34,6 +34,11 @@ data:
         ingressClass: "traefik-v2.9" # 指定traefik的ingressClass实例名称
         allowCrossNamespace: true   #允许跨namespace
         allowEmptyServices: true    #允许空endpoints的service        
+      kubernetesingress:
+        ingressclass: "traefik-v2.9"
+      kubernetesGateway: ""
+    experimental:
+      kubernetesGateway: true
     log:
       level: "DEBUG"            # 设置调试日志级别
       format: "common"          # 设置调试日志格式

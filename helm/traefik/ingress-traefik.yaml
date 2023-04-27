@@ -1,21 +1,21 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: traefik-dashboard-ingress
+  name: whoami-traefik
   namespace: traefik
   annotations:
-    kubernetes.io/ingress.class: traefik-v2.9
+    kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
+#  ingressClassName: traefik
   rules:
-    - host: traefik.test.com
+    - host: "hello-world.local"  #<-- See here
       http:
         paths:
-          - path: /dashboard
+          - path: /traefik #<-- See here
             pathType: Prefix
-#            pathType: Exact
             backend:
               service:
-                name: traefik
+                name: whoami
                 port:
-                  number: 9000
+                  number: 80

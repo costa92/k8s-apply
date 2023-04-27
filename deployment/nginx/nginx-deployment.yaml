@@ -36,3 +36,18 @@ spec:
     - name: http
       port: 80
       targetPort: 80
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nginx-service
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`traefik.test.com`) && PathPrefix(`/nginx-service`)
+      kind: Rule
+      services:
+        - name: nginx-service  # 与svc的name一致
+          port: 80      # 与svc的port一致
