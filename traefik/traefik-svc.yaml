@@ -23,4 +23,12 @@ spec:
       port: 9100
       name: metrics
       targetPort: 9100
+    - name: tcpep
+      protocol: TCP
+      port: 9200
+      targetPort: 9200
+    - name: udpep
+      protocol: UDP
+      port: 9300
+      targetPort: 9300
   type: NodePort

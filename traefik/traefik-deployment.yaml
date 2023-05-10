@@ -35,6 +35,10 @@ spec:
               containerPort: 9000
             - name: metrics
               containerPort: 9100
+            - name: tcpep
+              containerPort: 9200               # tcp端口
+            - name: udpep
+              containerPort: 9300               # udp端口
           securityContext:
             capabilities:
               drop:

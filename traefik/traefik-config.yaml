@@ -24,6 +24,10 @@ data:
         address: ":9000"        # 配置9000端口，并设置入口名称为 dashboard
       metrics:
         address: ":9100"        # 配置9100端口，作为metrics收集入口
+      tcpep:
+        address: ":9200"        ## 配置9200端口，作为tcp入口
+      udpep:
+        address: ":9300/udp"    ## 配置9300端口，作为udp入口
     providers:
       kubernetesCRD:            # 启用Kubernetes CRD方式来配置路由规则
         allowCrossNamespace: true   #允许跨namespace

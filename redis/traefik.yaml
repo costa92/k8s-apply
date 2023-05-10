@@ -1,0 +1,12 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: redis
+spec:
+  entryPoints:
+    - tcpep											# 指定入口点为tcp端口
+  routes:
+    - match: HostSNI(`*`)         # 由于Traefik中使用TCP路由配置需要SNI，而SNI又是依赖TLS的，所以我们需要配置证书才行，如果没有证书的话，我们可以使用通配符*(适配ip的)进行配置
+      services:
+        - name: redis
+          port: 6379
