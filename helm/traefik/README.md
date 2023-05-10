@@ -16,7 +16,7 @@ image:
   tag: "v2.9.10"
   pullPolicy: IfNotPresent
 ```
-具体参考 my-traefik.yaml 文件
+具体参考 [my-traefik.yaml](my-value.yaml) 文件
 
 > 完整的默认配置可执行 helm show values traefik/traefik 命令查看。  
 
