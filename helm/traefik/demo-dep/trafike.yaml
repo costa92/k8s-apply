@@ -1,0 +1,14 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-service
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`traefik.test.com`) && PathPrefix(`/traefik`)
+      kind: Rule
+      services:
+        - name: treafik-service   # 与svc的name一致
+          port: 8080      # 与svc的port一致
