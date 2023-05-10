@@ -36,6 +36,6 @@ traefik   NodePort    10.98.249.108   <none>        9000:32437/TCP,80:31279/TCP,
 ```
 
 
-> 文档说明：
+> 文档说明:  
 > [在 TKE 上使用 Traefik Ingress](https://cloud.tencent.com/document/product/457/51235)  
 > [Traefik 官方文档](https://doc.traefik.io/traefik/routing/providers/kubernetes-crd/) 
