@@ -14,27 +14,20 @@ data:
     api:
       insecure: true            # 允许HTTP 方式访问API
       dashboard: true           # 启用Dashboard
-      debug: false              # 启用Debug调试模式
+      debug: true              # 启用Debug调试模式
     entryPoints:
       web:
         address: ":80"          # 配置80端口，并设置入口名称为web
-        forwardedHeaders:
-          insecure: true        # 信任所有的forward headers
       websecure:
         address: ":443"         # 配置443端口，并设置入口名称为 websecure
-        forwardedHeaders: 
-          insecure: true
       traefik:
         address: ":9000"        # 配置9000端口，并设置入口名称为 dashboard
       metrics:
         address: ":9100"        # 配置9100端口，作为metrics收集入口
     providers:
       kubernetesCRD:            # 启用Kubernetes CRD方式来配置路由规则
-    #    ingressClass: ""        # 指定traefik的ingressClass名称
-    #    ingressClass: "traefik-v2.9" # 指定traefik的ingressClass实例名称
         allowCrossNamespace: true   #允许跨namespace
         allowEmptyServices: true    #允许空endpoints的service        
-
     experimental:
       kubernetesGateway: true
     log:

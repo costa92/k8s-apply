@@ -59,3 +59,21 @@ kubectl apply -f service.yml
 
 ### 测试
 参考 sample文件中的 apple.yaml、banana.yaml、ingress.yaml
+
+**注意：** 在 mac docker 中容器 hostPort 参数不能生效
+```yaml
+    ports:
+    - name: web
+        containerPort: 80
+        hostPort: 80  # 不能生效 mac docker 中
+        protocol: TCP
+```
+原因参考:
+[Docker 的(Linux/Mac OS)网络配置问题] (https://yuanmomo.net/2019/06/13/docker-network/)
+
+
+
+宿主机访问容器，使用 -p 参数映射端口。容器访问宿主机，可以在宿主机使用下面的命令获取 宿主机的 ip 地址：
+```sh
+ps -ef | grep -i docker | grep -i  "\-\-host\-ip" |awk -F "host-ip" '{print $2}' | awk -F '--lowest-ip' '{print $1}'
+```

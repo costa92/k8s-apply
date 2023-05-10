@@ -14,5 +14,3 @@ spec:
         - name: api@internal
           kind: TraefikService
           namespace: traefik
-  tls:
-    secretName: traefik-tls        # 指定tls证书名称

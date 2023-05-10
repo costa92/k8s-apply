@@ -12,5 +12,3 @@ spec:
         - name: nginx-service  # 与svc的name一致
           port: 8080      # 与svc的port一致
           namespace: default
-  tls:
-    secretName: traefik-tls        # 指定tls证书名称
