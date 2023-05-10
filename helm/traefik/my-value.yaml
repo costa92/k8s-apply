@@ -582,7 +582,7 @@ ports:
     hostPort: 80
     # containerPort: 8000
     expose: true
-    exposedPort: 80
+    exposedPort: 80 # 对外的 HTTP 端口号，使用标准端口号在国内需备案
     ## Different target traefik port on the cluster, useful for IP type LB
     # targetPort: 80
     # The port protocol (TCP/UDP)
