@@ -17,9 +17,9 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.14.2 
+        image: costa92/app-service:v0.1
         ports:
-        - containerPort: 80  
+        - containerPort: 8080
 
 
 ---
@@ -34,20 +34,6 @@ spec:
   type: NodePort
   ports:
     - name: http
-      port: 80
-      targetPort: 80
+      port: 8080
+      targetPort: 8080
 
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  name: nginx-service
-spec:
-  entryPoints:
-    - web
-  routes:
-    - match: Host(`traefik.test.com`) && PathPrefix(`/nginx-service`)
-      kind: Rule
-      services:
-        - name: nginx-service  # 与svc的name一致
-          port: 80      # 与svc的port一致

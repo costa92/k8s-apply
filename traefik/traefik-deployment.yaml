@@ -26,8 +26,10 @@ spec:
           ports:
             - name: web
               containerPort: 80
+              hostPort: 80
             - name: websecure
               containerPort: 443
+              hostPort: 433
             - name: admin
               containerPort: 9000
             - name: metrics
@@ -70,11 +72,16 @@ spec:
       tolerations:                             # 设置容忍所有污点，防止节点被设置污点
         - operator: "Exists"
 #      hostNetwork: true                        # 开启host网络，提高网络入口的网络性能
-#      dnsConfig:
-#        searches:
-#          - traefik.svc.cluster.local
-#          - svc.cluster.local
-#          - cluster.local
+      dnsConfig: # 开启host网络后，默认使用主机的dns配置，添加coredns配置
+        nameservers:
+          - 10.96.0.10
+        searches:
+          - traefik.svc.cluster.local
+          - svc.cluster.local
+          - cluster.local
+        options:
+          - name: ndots
+            value: "5"
 #      nodeSelector: # 设置node筛选器，在特定label的节点上启动
 #        IngressProxy: "true"                   # 调度至IngressProxy: "true"的节点
 

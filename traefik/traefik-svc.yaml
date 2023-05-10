@@ -11,6 +11,10 @@ spec:
       port: 80
       name: web
       targetPort: 80
+    - name: websecure
+      protocol: TCP
+      port: 443
+      targetPort: 443
     - protocol: TCP
       port: 9000
       name: admin

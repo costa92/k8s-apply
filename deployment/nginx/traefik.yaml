@@ -1,0 +1,16 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nginx-service
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`traefik.test.com`) && PathPrefix(`/nginx-service`)
+      kind: Rule
+      services:
+        - name: nginx-service  # 与svc的name一致
+          port: 8080      # 与svc的port一致
+          namespace: default
+  tls:
+    secretName: traefik-tls        # 指定tls证书名称

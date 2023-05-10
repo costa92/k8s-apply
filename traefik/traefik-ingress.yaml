@@ -4,8 +4,7 @@ metadata:
   name: traefik-dashboard-ingress
   namespace: traefik
   annotations:
-    kubernetes.io/ingress.class: traefik-v2.9
-    traefik.ingress.kubernetes.io/router.entrypoints: web
+    kubernetes.io/ingress.class: traefik
 spec:
   rules:
     - host: traefik.test.com
