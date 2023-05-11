@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: treafik-api-02
+  labels:
+    app: treafik-api-02
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: treafik-api-02
+  template:
+    metadata:
+      labels:
+        app: treafik-api-02
+    spec:
+      containers:
+        - name: nginx
+          image: costa92/treafik-api:v0.0.2
+          ports:
+            - containerPort: 8080
+
+
+---
+# https://kubernetes.io/docs/concepts/services-networking/service/
+apiVersion: v1
+kind: Service
+metadata:
+  name: treafik-service-2
+spec:
+  selector:
+    app: treafik-api-02
+  type: NodePort
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080

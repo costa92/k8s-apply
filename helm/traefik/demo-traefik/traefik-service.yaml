@@ -1,0 +1,15 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: TraefikService
+metadata:
+  name: app-wrr
+spec:
+  weighted:
+    services:
+      - name:  treafik-service
+        weight: 1
+        port: 8080
+        kind: Service
+      - name: treafik-service-2
+        weight: 1
+        port: 8080
+        kind: Service
