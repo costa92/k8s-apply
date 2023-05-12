@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: costa92/treafik-api:v0.0.2
+          image: costa92/treafik-api:v0.0.4
           ports:
             - containerPort: 8080
 
