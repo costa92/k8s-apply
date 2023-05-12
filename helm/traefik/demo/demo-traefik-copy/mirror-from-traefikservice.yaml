@@ -1,0 +1,13 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: TraefikService
+metadata:
+  name: mirror-from-traefikservice
+  namespace: default
+spec:
+  mirroring:
+    name: mirror-from-service     #流量入口从TraefikService 来
+    kind: TraefikService
+    mirrors:
+      - name: treafik-service-2
+        port: 8080
+        percent: 20

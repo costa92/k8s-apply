@@ -1,4 +1,4 @@
-# 流量复制
+# 灰度发布 (GrayRelease)
 
 1. 创建 TraefikService
 ```yaml
