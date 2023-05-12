@@ -1,11 +1,12 @@
-# demo-dep 
+# demo-dep-v2 
+部署 deply v2 版本
 ## raefik 运行 raefik-api
 1. 新建 Deployment 类型文件
 [traefik-api-dep.yaml](traefik-api-dep.yaml)
 ```yaml
       containers:
         - name: nginx
-          image: costa92/treafik-api:v0.0.1   # 镜像名称与版本
+          image: costa92/treafik-api:v0.0.2   # 镜像名称与版本
           ports:
             - containerPort: 8080
 ```
@@ -24,10 +25,12 @@ spec:
     - match: Host(`traefik.test.com`) && PathPrefix(`/traefik`)
       kind: Rule
       services:
-        - name: treafik-service   # 与svc的name一致
+        - name: treafik-service-v2   # 与svc的name一致
           port: 8080      # 与svc的port一致
 ```
+
 
 >测试镜像代码:  
 > [raefik-api](https://github.com/costa92/traefik-api)  
 > [docker image](https://hub.docker.com/r/costa92/treafik-api/tags)
+ 

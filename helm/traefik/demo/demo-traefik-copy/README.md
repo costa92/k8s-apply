@@ -1,0 +1,37 @@
+# 灰度发布 (GrayRelease)
+
+1. 创建 TraefikService
+```yaml
+apiVersion: traefik.containo.us/v1alpha1
+kind: TraefikService
+metadata:
+  name: mirror-from-service
+spec:
+  mirroring:
+    name: treafik-service  # 发送 100% 的请求到 K8S 的 Service "treafik-service
+    port: 8080
+    mirrors:
+      - name: treafik-service-2  # 然后复制 20% 的请求到 treafik-service-2
+        port: 8080
+        percent: 20  # 百分比
+```
+
+
+2. 创建 IngressRoute 
+```yaml
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-api-ingress-route
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`traefik.test.com`) && PathPrefix(`/traefik`)
+      kind: Rule
+      services:
+        - name: mirror-from-service
+          kind: TraefikService
+
+```
+
