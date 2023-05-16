@@ -1,0 +1,19 @@
+# 02-whoami-httproute.yaml
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: http-app-1
+  labels:
+    app: traefik
+spec:
+  hostnames:
+    - whoami
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /
+    - backendRefs:                          # [14]
+        - name: whoami                   # [15]
+          weight: 1                         # [16]
+          port: 80

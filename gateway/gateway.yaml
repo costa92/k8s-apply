@@ -1,0 +1,26 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: traefik-gateway
+  namespace: default
+spec:
+  gatewayClassName: traefik                 # [1]
+  listeners:                                # [2]
+    - name: https
+      protocol: HTTPS
+      port: 443
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: mysecret
+    - name: http                            # [3]
+      protocol: HTTP                        # [4]
+      port: 80                            # [5]
+      allowedRoutes:                        # [9]
+        kinds:
+          - kind: HTTPRoute                 # [10]
+        namespaces:
+          from: Selector                    # [11]
+          selector:                         # [12]
+            matchLabels:
+              app: traefik

@@ -31,9 +31,11 @@ data:
     providers:
       kubernetesCRD:            # 启用Kubernetes CRD方式来配置路由规则
         allowCrossNamespace: true   #允许跨namespace
-        allowEmptyServices: true    #允许空endpoints的service        
+        allowEmptyServices: true    #允许空endpoints的service      
+      kubernetesGateway: "" # 添加此行  kubernetesGateway
     experimental:
-      kubernetesGateway: true
+      kubernetesGateway: true  # 添加 kubernetesGateway 开启
+        
     log:
       level: "DEBUG"            # 设置调试日志级别
       format: "common"          # 设置调试日志格式
