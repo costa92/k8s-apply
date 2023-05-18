@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`traefik.test.com`)
+    - match: Host(`traefik.costalong.cn`)
       kind: Rule
       services:
         - name: api@internal
