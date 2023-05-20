@@ -1,0 +1,16 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: prometheus
+#  annotations:
+#    kubernetes.io/ingress.class: traefik #  因为静态配置文件指定了ingressclass，所以这里的annotations 要指定，否则访问会404
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`prometheus.test.com`)
+      kind: Rule
+      services:
+        - name: prometheus   # 与svc的name一致
+          port: 9090      # 与svc的port一致
