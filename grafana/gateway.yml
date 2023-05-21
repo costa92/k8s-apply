@@ -1,0 +1,30 @@
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: Gateway
+metadata:
+  name: my-grafana-gateway
+spec:
+  gatewayClassName: my-gateway-class
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: HTTPRoute
+metadata:
+  name: http-grafana-app
+  namespace: default
+spec:
+  parentRefs:
+    - name: my-grafana-gateway
+  hostnames:
+    - grafana.costalong.cn
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: grafana
+          port: 3000
+          weight: 1
