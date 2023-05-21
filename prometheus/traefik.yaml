@@ -9,7 +9,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`prometheus.test.com`)
+    - match: Host(`prometheus.costalong.cn`)
       kind: Rule
       services:
         - name: prometheus   # 与svc的name一致

@@ -32,7 +32,9 @@ data:
       kubernetesCRD:            # 启用Kubernetes CRD方式来配置路由规则
         allowCrossNamespace: true   #允许跨namespace
         allowEmptyServices: true    #允许空endpoints的service
-      kubernetesGateway: "" 
+        namespaces:
+         - traefik
+      kubernetesGateway: true  
     experimental:
       kubernetesGateway: true
     log:
